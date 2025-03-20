@@ -1,7 +1,13 @@
 ﻿@page "/"
 @inject IBookRepository Repository
+
+@* To set the render mode at the page level..., in our case, we will do it at the component level *@
+@* @rendermode InteractiveServer *@
+
 @* @attribute [StreamRendering]
- *@<PageTitle>Book List</PageTitle>
+ *@
+
+<PageTitle>Book List</PageTitle>
 
 
 <div class="row justify-content-center">
@@ -16,7 +22,7 @@
 			@foreach (var book in books)
 			{
 				<div class="book-item">
-					<BookCard Book="book"></BookCard>
+					<BookCard @rendermode="InteractiveServer" Book="book"></BookCard>
 				</div>
 			}
 		}

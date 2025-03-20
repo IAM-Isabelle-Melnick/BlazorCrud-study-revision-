@@ -5,7 +5,7 @@ using SimpleBookCatalog.Infrastructure.Context;
 
 namespace SimpleBookCatalog.Infrastructure.Repositories
 {
-    public class BookRepository:IBookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly SimpleBookCatalogDbContext context;
 
@@ -18,6 +18,16 @@ namespace SimpleBookCatalog.Infrastructure.Repositories
         {
             context.Books.Add(book);
             await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var book = await GetByIdAsync(id);
+            if (book is not null)
+            {
+                context.Books.Remove(book);
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<List<Book>> GetAllAsync()
